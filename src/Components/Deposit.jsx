@@ -16,6 +16,7 @@ function Deposit(){
     } else {
       alert("You can't make operations with negative numbers")
       setSuccess(false)
+      return false
     }
     return true
   }
