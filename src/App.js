@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import ContextProvider from './context';
 import Home from './Components/Home';
 import CreateAccount from './Components/CreateAccount';
@@ -19,7 +19,8 @@ function App() {
         <Router>
           <Switch>
               <Layout>
-                  <Route path="/" exact component={Home} />
+                  <Redirect from="/" to="/index.html" exact component={Home}></Redirect>
+                  <Route path="/index.html" exact component={Home} />
                   <Route path="/CreateAccount/" component={CreateAccount} />
                   <Route path="/login/" component={Login} />
                   <Route path="/deposit/" component={Deposit} />
