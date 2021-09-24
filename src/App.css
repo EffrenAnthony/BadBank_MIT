@@ -30,6 +30,13 @@ min-width: 200px;
   border-radius: 5px; */
  
 }
+.navbar-brand:hover+.nav-popup{
+  display: block;
+  /* padding: 10px;;
+  background-color: #0d6dfd4f;
+  border-radius: 5px; */
+ 
+}
 .selected{
   padding: 10px;
   background-color: #0d6efd;

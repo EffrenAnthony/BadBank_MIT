@@ -13,7 +13,7 @@ function Withdraw(){
     let balance = users[index].balance
     console.log(balance);
     console.log(data.amount);
-    if (balance > 0 && balance >= Number(data.amount)) {
+    if (balance > 0 && balance >= Number(data.amount) && Number(data.amount) >= 0) {
       users[index].balance -= Number(data.amount)
     } else {
       setWithDrawError(true)
