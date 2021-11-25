@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { useBankContext } from '../context';
+import { updateAmmount } from '../utils/updateAmmount';
 
 import BankForm from "./BankForm";
 
 function Withdraw(){
   const [withDrawError, setWithDrawError] = useState(false)
   // const ctx = React.useContext(UserContext); 
-  const { users } = useBankContext() 
-  const handle = (data) => {
+  const { users, currentUser } = useBankContext() 
+  const handle = async (data) => {
     let user = users.filter(user => user.loged === true)
     let index = users.indexOf(user[0])
     let balance = users[index].balance
@@ -15,6 +16,7 @@ function Withdraw(){
     console.log(data.amount);
     if (balance > 0 && balance >= Number(data.amount) && Number(data.amount) >= 0) {
       users[index].balance -= Number(data.amount)
+      await updateAmmount(currentUser.email, -1*Number(data.amount))
     } else {
       setWithDrawError(true)
       alert("You can't withdraw that amount")

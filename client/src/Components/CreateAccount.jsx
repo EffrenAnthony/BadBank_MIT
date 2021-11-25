@@ -1,11 +1,13 @@
 import React from 'react'
 import { useBankContext } from '../context';
 import BankForm from './BankForm';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 function CreateAccount(){
   // const ctx = React.useContext(UserContext);  
   const { users } = useBankContext()
-  function handle(data){
+  async function handle(data){
     users.push({
       name: data.name,
       email: data.email,
@@ -13,6 +15,20 @@ function CreateAccount(){
       balance: 100,
       loged: false
     })
+    const auth  = firebase.auth();
+
+    try {
+      await auth.createUserWithEmailAndPassword(data.email,data.password);
+    } catch (err) {
+      console.log(err.message)
+    }
+    
+    const url = `http://localhost:3100/account/create/${data.name}/${data.email}/${data.password}`;
+    (async () => {
+        var res  = await fetch(url);
+        var data = await res.json();    
+        console.log(data);        
+    })();
     return true
   }
   return (

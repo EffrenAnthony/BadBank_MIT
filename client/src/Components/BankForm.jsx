@@ -60,7 +60,7 @@ function BankForm({
         if (!validate(name,     'name')) {
           alert('Please enter a name')
           return ;
-        }     
+        } 
       }
       if (!validate(email,    'email'))    {
         alert('Please enter an email')

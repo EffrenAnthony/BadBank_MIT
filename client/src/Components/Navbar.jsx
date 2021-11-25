@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useBankContext } from '../context';
 import { NavLink, useHistory } from 'react-router-dom'
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 function NavBar(){ 
-  const { logout, users } = useBankContext()
+  const { logout, users, currentUser: currentUserContext } = useBankContext()
   let history = useHistory();
   const [currentUser, setCurrentUser] = useState()
   useEffect(()=>{
@@ -24,6 +26,7 @@ function NavBar(){
     } else {
       history.push('/login/')
     }
+    firebase.auth().signOut();
   }
   return(
     <>
@@ -47,22 +50,27 @@ function NavBar(){
             <NavLink className="nav-link ms-2 me-2" to="/login/" activeClassName="selected">Login</NavLink>
             <div className="nav-popup">{currentUser ? 'Now you can do any action' : 'Login before using the BadBank'}</div>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link ms-2 me-2" to="/deposit/" activeClassName="selected">Deposit</NavLink>
-            <div className="nav-popup">{currentUser ? 'Deposit funds in your account' : 'Please Login first'}</div>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link ms-2 me-2" to="/withdraw/" activeClassName="selected">Withdraw</NavLink>
-            <div className="nav-popup">{currentUser ? 'Withdraw funds from your account' : 'Please Login first'}</div>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link ms-2 me-2" to="/balance/" activeClassName="selected">Balance</NavLink>
-            <div className="nav-popup">{currentUser ? 'See your balance' : 'Please Login first'}</div>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link ms-2 me-2" to="/alldata/" activeClassName="selected">AllData</NavLink>
-            <div className="nav-popup">See all data in this Bank</div>
-          </li>  
+          {
+            currentUserContext && 
+            <>
+            <li className="nav-item">
+              <NavLink className="nav-link ms-2 me-2" to="/deposit/" activeClassName="selected">Deposit</NavLink>
+              <div className="nav-popup">{currentUser ? 'Deposit funds in your account' : 'Please Login first'}</div>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link ms-2 me-2" to="/withdraw/" activeClassName="selected">Withdraw</NavLink>
+              <div className="nav-popup">{currentUser ? 'Withdraw funds from your account' : 'Please Login first'}</div>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link ms-2 me-2" to="/balance/" activeClassName="selected">Balance</NavLink>
+              <div className="nav-popup">{currentUser ? 'See your balance' : 'Please Login first'}</div>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link ms-2 me-2" to="/alldata/" activeClassName="selected">AllData</NavLink>
+              <div className="nav-popup">See all data in this Bank</div>
+            </li>  
+            </>
+          }
       </ul>
           <div className="d-flex justify-content-end w-100">
               <button className="btn btn-secondary" onClick={logOut}>{currentUser ? 'Log out' : 'Log In'}</button>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import ContextProvider from './context';
@@ -9,8 +10,10 @@ import Withdraw from './Components/Withdraw';
 import Balance from './Components/Balance';
 import AllData from './Components/AllData';
 import Layout from './shared/Layout';
+import firebase from './utils/firebase';
 
 function App() {
+  
   return (
     <Router>
       {/* <UserContext.Provider value={{users:[{name:'abel',email:'abel@mit.edu',password:'secret',balance:100, loged: false}]}}> */}

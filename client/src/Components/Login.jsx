@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useBankContext } from '../context';
-
-
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 import BankForm from "./BankForm";
 
 function Login(){
@@ -26,6 +26,9 @@ function Login(){
     if ( user.length > 0){
       let index = users.indexOf(user[0])
       users[index].loged = true
+      const auth  = firebase.auth();		
+      const promise = auth.signInWithEmailAndPassword(user[0].email, user[0].password);
+      promise.catch(e => console.log(e.message));
       login(user[0])
       setCurrentUser(user)
       return true
@@ -36,18 +39,7 @@ function Login(){
       }, 3000)
     }
   }
-  // const logOut = () => {
-  //   let user = users.filter(user => user.loged === true)
-  //   if (user[0]) {
-  //     logout(user[0])
-  //     setCurrentUser(null)
-  //     // BUG
-  //     history.push('/login/')
-      
-  //   } else {
-  //     history.push('/login/')
-  //   }
-  // }
+
   return (
     <>
     {
