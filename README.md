@@ -55,7 +55,7 @@ npm run dev
 - ReactJS
 - Firebase
 
-## Features:
+## Features:
 
 Features:
 - Authentication and Register: Implemented on the frontend with firebase
